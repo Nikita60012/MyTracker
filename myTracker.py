@@ -10,7 +10,8 @@ class YoloDetector:
 
         self.model = self.load_model(model_name) # Подгрузка модели
         self.classes = self.model.names # Список объектов для трекинга
-        print(self.classes)
+        #отображение классов, которые имеются в весах
+        #print(self.classes)
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu' #Использование видеопамяти, если представляется возможным
         print("Using Device: ", self.device)
 
@@ -98,8 +99,8 @@ cap = cv2.VideoCapture("D:\\Users\\Никита\\Desktop\\test4.mp4")
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
-#Создание объекта yolo детектора
-detector = YoloDetector(model_name="radar.pt")
+#Создание объекта yolo детектора и передача модели
+detector = YoloDetector(model_name=None)
 
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
