@@ -1,8 +1,11 @@
 import cv2
-import numpy as np
 
 import torch
 import time
+
+from pafy import pafy
+
+
 
 class YoloDetector:
 
@@ -92,9 +95,16 @@ class YoloDetector:
 
         return frame,detections
 
-#Выбор видео и установка размеров окна просмотра
-cap = cv2.VideoCapture("D:\\Users\\Никита\\Desktop\\test4.mp4")
 
+
+import os
+os.environ['OPENCV_FFMPEG_CAPTURE_OPTIONS'] = 'rtsp_transport;udp'
+
+#Выбор видео и установка размеров окна просмотра
+
+url = 'https://youtu.be/oAOneJzGX6A'
+play = pafy.new(url).getbest(preftype="mp4").url
+cap = cv2.VideoCapture(play)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -102,7 +112,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 #Создание объекта yolo детектора и передача модели
 detector = YoloDetector(model_name=None)
 
-import os
+
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 from deep_sort_realtime.deepsort_tracker import DeepSort
@@ -161,6 +171,5 @@ while cap.isOpened():
 
 
 cap.release()
-
 
 cv2.destroyAllWindows()
