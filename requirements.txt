@@ -13,3 +13,4 @@ psutil~=5.9.5
 thop~=0.1.1.post2209072238
 scipy~=1.10.1
 pafy~=0.5.5
+youtube-dl==2020.12.2
